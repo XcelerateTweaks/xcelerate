@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Xcelerate Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --xcelerate-purple: #8B5CF6;
+            --xcelerate-gold: #F59E0B;
+            --xcelerate-void: #1F2937;
+            --xcelerate-neon: #10B981;
+            --xcelerate-dark: #111827;
+            --xcelerate-cyan: #06B6D4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, var(--xcelerate-void), #000);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--xcelerate-purple);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.3;
+            box-shadow: 0 0 10px var(--xcelerate-purple);
+        }
+
+        .particle:nth-child(3n) {
+            background: var(--xcelerate-gold);
+            box-shadow: 0 0 10px var(--xcelerate-gold);
+        }
+
+        .particle:nth-child(3n+1) {
+            background: var(--xcelerate-cyan);
+            box-shadow: 0 0 10px var(--xcelerate-cyan);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(-50vh) translateX(50vw) scale(1.5);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav.hidden {
+            transform: translateY(-100%);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link:hover::before {
+            opacity: 0.2;
+            transform: scale(1);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(31, 41, 55, 0.95) 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .pricing-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .pricing-section-title {
+            font-size: 3.5rem;
+            color: var(--xcelerate-gold);
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .pricing-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            border-radius: 2px;
+        }
+
+        .pricing-section-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 2rem auto 4rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .pricing-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            opacity: 0.8;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .pricing-name {
+            font-size: 2rem;
+            color: var(--xcelerate-gold);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .pricing-price {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .original-price {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: line-through;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .discount-badge {
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--xcelerate-gold);
+            font-weight: bold;
+        }
+
+        .pricing-button-container {
+            margin-top: auto;
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        .pricing-button {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            color: white;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            border: none;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .pricing-button.secondary {
+            background: transparent;
+            border: 2px solid var(--xcelerate-purple);
+            color: var(--xcelerate-purple);
+        }
+
+        .pricing-button.secondary:hover {
+            background: var(--xcelerate-purple);
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--xcelerate-dark);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            margin-top: 6rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--xcelerate-purple), transparent);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--xcelerate-purple);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--xcelerate-purple);
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .pricing-section-title {
+                font-size: 2.5rem;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .pricing-card {
+                min-height: auto;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            margin: auto;
+            background: rgba(31, 41, 55, 0.95);
+            border-radius: 16px;
+            padding: 2.5rem;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: white;
+            background: rgba(139, 92, 246, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .modal-section {
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .modal-section:nth-child(2) { animation-delay: 0.1s; }
+        .modal-section:nth-child(3) { animation-delay: 0.2s; }
+        .modal-section:nth-child(4) { animation-delay: 0.3s; }
+        .modal-section:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-section h2 {
+            color: var(--xcelerate-gold);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-section h2 i {
+            font-size: 1.4rem;
+            color: var(--xcelerate-purple);
+        }
+
+        .modal-section p {
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .modal-section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .modal-section li {
+            color: #e2e8f0;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .modal-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--xcelerate-purple);
+        }
+
+        .modal-meta {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            color: #94a3b8;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--xcelerate-purple);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--xcelerate-gold);
+        }
+
+        /* Money-back Guarantee Banner */
+        .guarantee-banner {
+            display: none;
+        }
+
+        /* Comparison Table Styles */
+        .comparison {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 20px;
+        }
+
+        .comparison-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 16px;
+            padding: 1rem;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .comparison-table th {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--xcelerate-gold);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        /* FAQ Styles */
+        .faq {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 20px;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .faq-item {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .faq-item h3 {
+            color: var(--xcelerate-gold);
+            margin-bottom: 1rem;
+        }
+
+        /* Enhanced Testimonials Styles */
+        .testimonials {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translateX(-50%) rotate(0deg); }
+            to { transform: translateX(-50%) rotate(360deg); }
+        }
+
+        .testimonials-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold), var(--xcelerate-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .testimonial-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .testimonial-rating {
+            color: var(--xcelerate-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .star {
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover .star {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 5px var(--xcelerate-gold));
+        }
+
+        .testimonial-content {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .testimonial-content::before,
+        .testimonial-content::after {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(139, 92, 246, 0.2);
+            position: absolute;
+            line-height: 1;
+        }
+
+        .testimonial-content::before {
+            top: -1rem;
+            left: -1rem;
+        }
+
+        .testimonial-content::after {
+            bottom: -2rem;
+            right: -1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--xcelerate-purple);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .author-info h4 {
+            color: var(--xcelerate-gold);
+            font-size: 1.2rem;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .author-info span {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover .author-info h4 {
+            color: var(--xcelerate-cyan);
+        }
+
+        .testimonial-card:hover .author-info span {
+            color: #e2e8f0;
+        }
+
+        .testimonial-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover .testimonial-badge {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-title {
+                font-size: 2.5rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Testimonial Navigation */
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-nav-btn {
+            background: none;
+            border: 2px solid var(--xcelerate-purple);
+            color: var(--xcelerate-purple);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .testimonial-nav-btn:hover {
+            background: var(--xcelerate-purple);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .testimonial-nav-btn.active {
+            background: var(--xcelerate-purple);
+            color: white;
+        }
+
+        /* Enhanced Calculator Styles */
+        .calculator {
+            display: none;
+        }
+
+        .calculator-title,
+        .calculator-container,
+        .calculator-form,
+        .calculator-group,
+        .calculator-result,
+        .calculator-price,
+        .calculator-savings,
+        .calculator-features {
+            display: none;
+        }
+
+        /* Add pulsing effect for savings */
+        @keyframes savingsPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .calculator-savings {
+            animation: savingsPulse 2s infinite;
+        }
+
+        /* Add keyframes for feature animations */
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Enhanced Payment Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .payment-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .payment-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            background: rgba(31, 41, 55, 0.95);
+            border-radius: 24px;
+            padding: 3rem;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.1);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .payment-modal.active .payment-modal-content {
+            transform: translateY(0);
+        }
+
+        .payment-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .payment-modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold), var(--xcelerate-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .payment-modal-message {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: #e2e8f0;
+            line-height: 1.8;
+            padding: 0 1rem;
+        }
+
+        .payment-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-align: left;
+            padding: 1.5rem;
+            background: rgba(17, 24, 39, 0.5);
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .payment-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-step:hover {
+            transform: translateX(10px);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .step-number {
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            color: #e2e8f0;
+        }
+
+        .step-content strong {
+            color: var(--xcelerate-gold);
+            font-weight: bold;
+        }
+
+        .payment-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .payment-modal-button {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-modal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .payment-modal-button:hover::before {
+            left: 100%;
+        }
+
+        .payment-modal-button.proceed {
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            color: white;
+            border: none;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .payment-modal-button.proceed:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .payment-modal-button.decline {
+            background: transparent;
+            color: #ccc;
+            border: 2px solid #ccc;
+        }
+
+        .payment-modal-button.decline:hover {
+            color: white;
+            border-color: white;
+            transform: translateY(-3px);
+        }
+
+        .discord-icon {
+            color: #5865F2;
+            margin: 0 0.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .payment-modal-content {
+                padding: 2rem;
+            }
+
+            .payment-modal-title {
+                font-size: 2rem;
+            }
+
+            .payment-modal-message {
+                font-size: 1.1rem;
+            }
+
+            .payment-modal-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .payment-modal-button {
+                width: 100%;
+            }
+        }
+
+        /* User-friendly Enhancements */
+        :focus {
+            outline: 2px solid var(--xcelerate-purple);
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--xcelerate-purple);
+            color: white;
+            padding: 8px;
+            z-index: 1001;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(139, 92, 246, 0.2);
+            z-index: 1000;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(139, 92, 246, 0.9);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--xcelerate-purple);
+        }
+
+        /* Enhanced Pricing Cards */
+        .pricing-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .pricing-card:focus-within {
+            transform: translateY(-10px);
+            border-color: var(--xcelerate-purple);
+        }
+
+        .pricing-features li {
+            position: relative;
+            padding-left: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--xcelerate-purple);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-features li:hover:before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Enhanced Buttons */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s;
+        }
+
+        .btn:hover::after {
+            transform: translate(-50%, -50%) scale(2);
+        }
+
+        /* Loading State */
+        .loading {
+            position: relative;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--xcelerate-purple);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced FAQ Section */
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateX(10px);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .faq-question {
+            cursor: pointer;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* Tooltips */
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        [data-tooltip]:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Add Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Add Scroll Progress -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
+    <!-- Add Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Particle Effect -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Payment Confirmation Modal -->
+    <div id="paymentModal" class="payment-modal">
+        <div class="payment-modal-content">
+            <h2 class="payment-modal-title">Payment Instructions</h2>
+            <div class="payment-steps">
+                <div class="payment-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        Click <strong>Proceed to Payment</strong> to be redirected to our secure PayPal payment page
+                    </div>
+                </div>
+                <div class="payment-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        Complete your payment through PayPal's secure system
+                    </div>
+                </div>
+                <div class="payment-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        Take a <strong>screenshot</strong> of your payment confirmation
+                    </div>
+                </div>
+                <div class="payment-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        Send the screenshot to our <strong>Discord</strong> team <i class="fab fa-discord discord-icon"></i> (owner, admins, or mods)
+                    </div>
+                </div>
+                <div class="payment-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        Your subscription will be <strong>activated within minutes</strong> after verification
+                    </div>
+                </div>
+            </div>
+            <div class="payment-modal-buttons">
+                <button class="payment-modal-button proceed" id="proceedPayment">
+                    Proceed to Payment
+                </button>
+                <button class="payment-modal-button decline" id="declinePayment">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Xcelerate</a>
+            <div class="nav-links">
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <h2 class="pricing-section-title">Choose Your Power Level</h2>
+        <p class="pricing-section-description">Unlock the full potential of your system with our carefully crafted packages. Each tier is designed to push the boundaries of what's possible.</p>
+
+        <div class="pricing-cards">
+            <!-- Starter Pack -->
+            <div class="pricing-card">
+                <div>
+                    <h3 class="pricing-name">Starter Pack</h3>
+                    <div class="pricing-price">
+                        <span class="original-price">$5</span>
+                        <span class="price">$2.50<span>/month</span></span>
+                        <div class="discount-badge">50% OFF</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Basic Performance Tweaks</li>
+                        <li>Simple FPS Boost</li>
+                        <li>Basic Power Plan</li>
+                        <li>Community Support</li>
+                    </ul>
+                </div>
+                <div class="pricing-button-container">
+                    <a href="https://www.paypal.com/paypalme/abx306?country.x=GB&locale.x=en_GB" class="pricing-button secondary" data-plan="starter">Get Started</a>
+                </div>
+            </div>
+
+            <!-- Pro Pack -->
+            <div class="pricing-card">
+                <div>
+                    <h3 class="pricing-name">Pro Pack</h3>
+                    <div class="pricing-price">
+                        <span class="original-price">$15</span>
+                        <span class="price">$10<span>/month</span></span>
+                        <div class="discount-badge">33% OFF</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Advanced Performance Suite</li>
+                        <li>AI-Powered Optimization</li>
+                        <li>Premium Power Plan</li>
+                        <li>Priority Support</li>
+                        <li>Custom Game Profiles</li>
+                    </ul>
+                </div>
+                <div class="pricing-button-container">
+                    <a href="https://www.paypal.com/paypalme/abx306?country.x=GB&locale.x=en_GB" class="pricing-button" data-plan="pro">Upgrade Now</a>
+                </div>
+            </div>
+
+            <!-- Ultimate Pack -->
+            <div class="pricing-card">
+                <div>
+                    <h3 class="pricing-name">Ultimate Pack</h3>
+                    <div class="pricing-price">
+                        <span class="original-price">$35</span>
+                        <span class="price">$25<span>/month</span></span>
+                        <div class="discount-badge">28% OFF</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Everything in Pro Pack</li>
+                        <li>Experimental Core Boosts</li>
+                        <li>X-Admin Power Mode</li>
+                        <li>24/7 Priority Support</li>
+                        <li>Early Access Features</li>
+                    </ul>
+                </div>
+                <div class="pricing-button-container">
+                    <a href="https://www.paypal.com/paypalme/abx306?country.x=GB&locale.x=en_GB" class="pricing-button secondary" data-plan="ultimate">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison">
+        <h2 class="comparison-title">Detailed Feature Comparison</h2>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter</th>
+                        <th>Pro</th>
+                        <th>Ultimate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Performance Boost</td>
+                        <td>Up to 20%</td>
+                        <td>Up to 50%</td>
+                        <td>Up to 100%</td>
+                    </tr>
+                    <tr>
+                        <td>AI Optimization</td>
+                        <td><i class="fas fa-times"></i></td>
+                        <td><i class="fas fa-check"></i></td>
+                        <td><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Custom Profiles</td>
+                        <td>2</td>
+                        <td>10</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Support Response</td>
+                        <td>24h</td>
+                        <td>12h</td>
+                        <td>1h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3>How does the money-back guarantee work?</h3>
+                <p>Our 30-day quantum-secured guarantee ensures a hassle-free refund if you're not satisfied with our service.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I upgrade my plan later?</h3>
+                <p>Yes! You can upgrade at any time and we'll prorate your existing subscription.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How is the performance boost calculated?</h3>
+                <p>Our AI system measures your baseline performance and optimizes accordingly using quantum algorithms.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What payment methods do you accept?</h3>
+                <p>We accept all major credit cards, PayPal, and cryptocurrency with quantum-encryption.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="testimonials-title">What Our Users Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-badge">Verified User</div>
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    "Xcelerate transformed my gaming experience. The performance boost is incredible! My FPS doubled and the system optimization is beyond anything I've tried before."
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=John" alt="John D." loading="lazy">
+                    <div class="author-info">
+                        <h4>John D.</h4>
+                        <span>Pro User • 6 months</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-badge">Power User</div>
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    "The AI optimization is mind-blowing. My system runs faster than ever! The custom profiles for different games are a game-changer. Worth every penny!"
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Sarah" alt="Sarah M." loading="lazy">
+                    <div class="author-info">
+                        <h4>Sarah M.</h4>
+                        <span>Ultimate User • 1 year</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-badge">Early Adopter</div>
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    "As a competitive gamer, every millisecond counts. Xcelerate's optimization suite gives me the edge I need. The experimental core boosts are insane!"
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Mike" alt="Mike R." loading="lazy">
+                    <div class="author-info">
+                        <h4>Mike R.</h4>
+                        <span>Ultimate User • 8 months</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-badge">Tech Enthusiast</div>
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    "The quantum-level optimizations and AI-driven performance tweaks are revolutionary. My workstation has never been more responsive. Absolutely recommended!"
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Alex" alt="Alex K." loading="lazy">
+                    <div class="author-info">
+                        <h4>Alex K.</h4>
+                        <span>Pro User • 3 months</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-nav">
+            <button class="testimonial-nav-btn active">All Reviews</button>
+            <button class="testimonial-nav-btn">Pro Users</button>
+            <button class="testimonial-nav-btn">Ultimate Users</button>
+        </div>
+    </section>
+
+    <!-- Add Modals -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h1 class="modal-title">Pricing Terms of Service</h1>
+            
+            <div class="modal-section">
+                <h2><i class="fas fa-file-invoice-dollar"></i> 1. Subscription Terms</h2>
+                <p>Welcome to Xcelerate's 2025 Pricing Terms. These terms govern your subscription and payment obligations:</p>
+                <ul>
+                    <li>All prices are in USD and subject to quantum market adjustments</li>
+                    <li>Subscriptions auto-renew unless cancelled 48 hours before renewal</li>
+                    <li>Quantum-verified payment processing with instant confirmation</li>
+                    <li>AI-powered fraud detection and prevention systems</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-sync"></i> 2. Refund Policy</h2>
+                <p>Our 2025 refund policy includes:</p>
+                <ul>
+                    <li>14-day quantum-guaranteed money-back period</li>
+                    <li>Instant neural-processed refunds to original payment method</li>
+                    <li>Pro-rated refunds for unused premium features</li>
+                    <li>AI-verified service usage analysis for partial refunds</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-chart-line"></i> 3. Plan Benefits</h2>
+                <p>Each subscription tier includes:</p>
+                <ul>
+                    <li>Guaranteed quantum-speed optimization delivery</li>
+                    <li>Neural network performance monitoring</li>
+                    <li>Real-time AI support system access</li>
+                    <li>Quantum-secure cloud backup of settings</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-shield-alt"></i> 4. Premium Features</h2>
+                <ul>
+                    <li>Advanced quantum optimization algorithms</li>
+                    <li>Priority neural processing queue</li>
+                    <li>Exclusive beta feature access</li>
+                    <li>Enhanced AI-driven support response</li>
+                </ul>
+            </div>
+
+            <div class="modal-meta">
+                Last Updated: March 2025 | Quantum Commerce Certified
+            </div>
+        </div>
+    </div>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h1 class="modal-title">Payment Privacy Policy</h1>
+            
+            <div class="modal-section">
+                <h2><i class="fas fa-lock"></i> 1. Payment Security</h2>
+                <p>Our 2025 payment security measures include:</p>
+                <ul>
+                    <li>Quantum-encrypted payment processing</li>
+                    <li>Neural network fraud detection</li>
+                    <li>Blockchain transaction verification</li>
+                    <li>Zero-knowledge proof payment validation</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-credit-card"></i> 2. Payment Data Handling</h2>
+                <p>Your payment information is protected by:</p>
+                <ul>
+                    <li>Post-quantum cryptographic storage</li>
+                    <li>AI-powered anomaly detection</li>
+                    <li>Quantum-resistant encryption</li>
+                    <li>Decentralized data verification</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-history"></i> 3. Transaction History</h2>
+                <p>We maintain your transaction records with:</p>
+                <ul>
+                    <li>Quantum-secured audit trails</li>
+                    <li>AI-verified transaction logs</li>
+                    <li>Real-time access controls</li>
+                    <li>Immutable blockchain records</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-user-shield"></i> 4. Billing Protection</h2>
+                <p>Your billing information is safeguarded by:</p>
+                <ul>
+                    <li>Neural network monitoring</li>
+                    <li>Quantum encryption protocols</li>
+                    <li>AI-driven fraud prevention</li>
+                    <li>Secure quantum vaults</li>
+                </ul>
+            </div>
+
+            <div class="modal-meta">
+                Last Updated: March 2025 | Compliant with Quantum Payment Standards
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Xcelerate</div>
+            <div class="footer-links">
+                <a href="#" class="footer-link" id="termsLink">Terms</a>
+                <a href="#" class="footer-link" id="privacyLink">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create particle effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random animation duration and delay
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Payment Modal Functionality
+        function initPaymentModal() {
+            const paymentModal = document.getElementById('paymentModal');
+            const proceedButton = document.getElementById('proceedPayment');
+            const declineButton = document.getElementById('declinePayment');
+            const pricingButtons = document.querySelectorAll('.pricing-button');
+            
+            // PayPal URL
+            const paypalUrl = 'https://www.paypal.com/paypalme/abx306?country.x=GB&locale.x=en_GB';
+            
+            // Open payment modal when pricing button is clicked
+            pricingButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    paymentModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Proceed to PayPal
+            proceedButton.addEventListener('click', () => {
+                window.location.href = paypalUrl;
+            });
+            
+            // Decline and return to main page
+            declineButton.addEventListener('click', () => {
+                paymentModal.classList.remove('active');
+                document.body.style.overflow = '';
+                window.location.href = 'index.html';
+            });
+            
+            // Close modal when clicking outside
+            paymentModal.addEventListener('click', (e) => {
+                if (e.target === paymentModal) {
+                    paymentModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && paymentModal.classList.contains('active')) {
+                    paymentModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Hide/show navbar on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Initialize everything on load
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initPaymentModal();
+            initModals();
+            initTestimonials();
+
+            // Animation for pricing cards
+            const cards = document.querySelectorAll('.pricing-card');
+            
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = card.classList.contains('featured') ? 'scale(1.05)' : 'translateY(0)';
+                }, 100 * (index + 1));
+            });
+        });
+
+        // Add Modal JavaScript
+        function initModals() {
+            const termsModal = document.getElementById('termsModal');
+            const privacyModal = document.getElementById('privacyModal');
+            const termsLink = document.getElementById('termsLink');
+            const privacyLink = document.getElementById('privacyLink');
+            const closeButtons = document.querySelectorAll('.modal-close');
+
+            function openModal(modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal(modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            termsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(termsModal);
+            });
+
+            privacyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(privacyModal);
+            });
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    closeModal(button.closest('.modal'));
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target);
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        closeModal(modal);
+                    });
+                }
+            });
+        }
+
+        // Testimonial Navigation
+        function initTestimonials() {
+            const navButtons = document.querySelectorAll('.testimonial-nav-btn');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Filter testimonials
+                    const filter = button.textContent.toLowerCase();
+                    testimonialCards.forEach(card => {
+                        const userType = card.querySelector('.author-info span').textContent.toLowerCase();
+                        if (filter === 'all reviews' || userType.includes(filter.replace(' users', ''))) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Add hover effect for stars
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('mouseover', () => {
+                    star.style.transform = 'scale(1.2) rotate(15deg)';
+                    star.style.filter = 'drop-shadow(0 0 5px var(--xcelerate-gold))';
+                });
+                star.addEventListener('mouseout', () => {
+                    star.style.transform = '';
+                    star.style.filter = '';
+                });
+            });
+        }
+
+        // Add User-friendly Features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize scroll progress
+            const progressBar = document.querySelector('.scroll-progress-bar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                // Update progress bar
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + '%';
+                
+                // Show/hide back to top button
+                if (winScroll > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scroll to top
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Add tooltips to pricing cards
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                const title = card.querySelector('h3').textContent;
+                card.setAttribute('data-tooltip', `View ${title} plan details`);
+                card.setAttribute('tabindex', '0');
+            });
+
+            // Add loading states to buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!this.classList.contains('loading')) {
+                        this.classList.add('loading');
+                        setTimeout(() => {
+                            this.classList.remove('loading');
+                        }, 1000);
+                    }
+                });
+            });
+
+            // Enhanced FAQ interaction
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.closest('.faq-item');
+                    const wasExpanded = faqItem.classList.contains('active');
+                    
+                    // Close other items
+                    document.querySelectorAll('.faq-item.active').forEach(item => {
+                        if (item !== faqItem) {
+                            item.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    faqItem.classList.toggle('active');
+                    
+                    // Announce to screen readers
+                    question.setAttribute('aria-expanded', !wasExpanded);
+                });
+            });
+
+            // Add keyboard navigation for FAQ
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        question.click();
+                    }
+                });
+            });
+
+            // Add aria-labels for accessibility
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.setAttribute('aria-label', link.textContent + ' page');
+            });
+
+            // Add touch feedback for mobile
+            document.addEventListener('touchstart', function() {}, true);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.pricing-card .btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const plan = button.getAttribute('data-plan');
+                    const paymentModal = document.getElementById('paymentModal');
+                    paymentModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Xcelerate Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --xcelerate-purple: #8B5CF6;
+            --xcelerate-gold: #F59E0B;
+            --xcelerate-void: #1F2937;
+            --xcelerate-neon: #10B981;
+            --xcelerate-dark: #111827;
+            --xcelerate-cyan: #06B6D4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, var(--xcelerate-void), #000);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--xcelerate-purple);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100vh) translateX(100vw); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(17, 24, 39, 0.95);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            animation: heroGlow 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.8rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(31, 41, 55, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--xcelerate-purple);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .stat-label {
+            font-size: 1.25rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-description {
+            color: #cccccc;
+            font-size: 1rem;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            padding: 150px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent,
+                var(--xcelerate-purple),
+                var(--xcelerate-gold),
+                transparent
+            );
+        }
+
+        .timeline-item {
+            width: 50%;
+            padding: 30px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            background: rgba(31, 41, 55, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--xcelerate-purple);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -40px;
+        }
+
+        .timeline-date {
+            font-size: 1.2rem;
+            color: var(--xcelerate-gold);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-title {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Awards Section */
+        .awards {
+            padding: 150px 20px;
+            background: linear-gradient(180deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+            position: relative;
+        }
+
+        .awards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .award-item {
+            background: rgba(31, 41, 55, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .award-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .award-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--xcelerate-gold);
+        }
+
+        .award-icon {
+            font-size: 3rem;
+            color: var(--xcelerate-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .award-title {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .award-description {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .team-header h2 {
+            font-size: 3.5rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .team-subtitle {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: rgba(31, 41, 55, 0.8);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            border-color: var(--xcelerate-purple);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .team-member img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--xcelerate-purple);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.05);
+            border-color: var(--xcelerate-gold);
+        }
+
+        .team-member h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .team-member p {
+            color: var(--xcelerate-gold);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .member-bio {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            color: #ffffff;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .social-link:hover {
+            color: var(--xcelerate-purple);
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        /* Audio Control */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(139, 92, 246, 0.9);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .audio-control:hover {
+            transform: scale(1.1);
+            background: var(--xcelerate-purple);
+        }
+
+        .audio-control i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Vision Section */
+        .vision {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
+            position: relative;
+            z-index: 2;
+        }
+
+        .vision-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .vision-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .vision-header h2 {
+            font-size: 3.5rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .vision-subtitle {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .vision-item {
+            background: rgba(31, 41, 55, 0.8);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .vision-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--xcelerate-purple);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .vision-item i {
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .vision-item h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .vision-item p {
+            color: #cccccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--xcelerate-dark);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--xcelerate-purple), transparent);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .footer-link:hover {
+            color: var(--xcelerate-purple);
+        }
+
+        /* Enhanced Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 4rem; }
+            .vision-container { gap: 2rem; }
+            .team-grid { gap: 2rem; }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3.5rem; }
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+            .timeline-container::before { left: 0; }
+            .timeline-item { width: 100%; margin-left: 30px; }
+            .timeline-item:nth-child(even) { margin-left: 30px; }
+            .timeline-content::before { left: -35px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1.4rem; }
+            .stats-container { grid-template-columns: 1fr; }
+            .stat-number { font-size: 3rem; }
+            .vision-header h2,
+            .team-header h2 {
+                font-size: 2.5rem;
+            }
+            .team-grid { grid-template-columns: 1fr; }
+            .awards-container { grid-template-columns: 1fr; }
+            .nav-links { 
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(17, 24, 39, 0.95);
+                padding: 1rem;
+                flex-direction: column;
+                align-items: center;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            .nav-container {
+                position: relative;
+            }
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+            .stat-number { font-size: 3rem; }
+            .timeline-content { padding: 1rem; }
+            .modal-content { padding: 1rem; }
+        }
+
+        /* Add mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            padding: 0.5rem;
+            z-index: 1000;
+        }
+
+        /* Remove all video-related styles */
+        .video-background,
+        .video-background video,
+        .video-controls,
+        .volume-slider {
+            display: none;
+        }
+
+        /* Adjust existing sections - remove video-related backgrounds */
+        .hero, .stats, .vision, .team, .footer {
+            position: relative;
+            z-index: 1;
+            background: rgba(17, 24, 39, 0.95);
+        }
+
+        .nav {
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Add these new styles */
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(139, 92, 246, 0.8);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold), var(--xcelerate-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            color: #fff;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            line-height: 1.8;
+            animation: fadeIn 1s ease-out 0.3s both;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced Vision Section */
+        .vision {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+        }
+
+        .vision-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .vision-item {
+            transform: translateY(0);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vision-item:hover {
+            transform: translateY(-10px);
+            background: rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .vision-item i {
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .vision-item:hover i {
+            transform: scale(1.2);
+        }
+
+        .vision-item h3 {
+            font-size: 1.8rem;
+            color: var(--xcelerate-gold);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .vision-item h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--xcelerate-gold);
+        }
+
+        .vision-item p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Particle Enhancement */
+        .particle {
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+        }
+
+        /* Add Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            margin: auto;
+            background: rgba(31, 41, 55, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: white;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h2 {
+            color: var(--xcelerate-gold);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .modal-section p {
+            color: #ccc;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal-section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .modal-section li {
+            color: #ccc;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--xcelerate-purple);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--xcelerate-gold);
+        }
+
+        .audio-play-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .audio-play-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            transform: scale(1.05);
+        }
+
+        /* Add these new user-friendly styles */
+        
+        /* Enhanced Focus States */
+        :focus {
+            outline: 2px solid var(--xcelerate-purple);
+            outline-offset: 2px;
+        }
+
+        /* Skip to Main Content Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--xcelerate-purple);
+            color: white;
+            padding: 8px;
+            z-index: 1001;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Loading States */
+        .loading {
+            position: relative;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--xcelerate-purple);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Button States */
+        .btn {
+            position: relative;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s;
+        }
+
+        .btn:hover::after {
+            transform: translate(-50%, -50%) scale(2);
+        }
+
+        /* Enhanced Navigation */
+        .nav-link {
+            position: relative;
+            padding: 8px 16px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--xcelerate-purple);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Tooltip Styles */
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        [data-tooltip]:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        /* Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(139, 92, 246, 0.2);
+            z-index: 1000;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        /* Enhanced Stats Section */
+        .stat-item {
+            cursor: pointer;
+        }
+
+        .stat-item:focus-within {
+            transform: translateY(-5px);
+            border-color: var(--xcelerate-purple);
+        }
+
+        .stat-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .stat-item.expanded .stat-details {
+            max-height: 200px;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(139, 92, 246, 0.9);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--xcelerate-purple);
+        }
+
+        /* Enhanced Vision Section Styles */
+        .vision-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .vision-features {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .vision-features li {
+            color: #cccccc;
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .vision-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--xcelerate-purple);
+        }
+
+        .vision-future {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .vision-future h3 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .vision-future > p {
+            color: #ffffff;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .future-item {
+            padding: 1.5rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .future-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--xcelerate-purple);
+            background: rgba(31, 41, 55, 0.8);
+        }
+
+        .future-item i {
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .future-item h4 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .future-item p {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .vision-intro {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .future-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vision-future {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Enhanced Hero Section */
+        .hero-highlights {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .highlight-item i {
+            color: var(--xcelerate-purple);
+            font-size: 1.3rem;
+        }
+
+        /* Enhanced Team Section */
+        .team-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .member-image {
+            position: relative;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .member-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 92, 246, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .member-quote {
+            color: white;
+            font-style: italic;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .team-member:hover .member-overlay {
+            opacity: 1;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-title {
+            color: var(--xcelerate-gold);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .member-achievements {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .member-achievements li {
+            color: #cccccc;
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .member-achievements li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--xcelerate-purple);
+        }
+
+        /* Remove join-team related styles */
+        .join-team,
+        .btn-primary,
+        .btn-primary:hover {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Effect -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Xcelerate</a>
+            <div class="nav-links">
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="main-content">
+        <div class="hero-content">
+            <h1>Our Story</h1>
+            <p>Pioneering the future of PC optimization since 2025</p>
+            <div class="hero-description">
+                <p>At Xcelerate, we're revolutionizing PC performance through cutting-edge technology and innovation. Our journey began with a simple vision: to make professional-grade optimization accessible to everyone.</p>
+                <div class="hero-highlights">
+                    <div class="highlight-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Industry-leading performance gains</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Enterprise-grade security</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-code"></i>
+                        <span>Quantum-inspired algorithms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item" data-tooltip="Growing user base worldwide">
+                <div class="stat-number" data-target="1000000">0</div>
+                <div class="stat-label">Active Users</div>
+                <div class="stat-description">Optimizing performance worldwide</div>
+                <div class="stat-details">
+                    <p>Join our growing community of performance enthusiasts who trust Xcelerate for their optimization needs.</p>
+                </div>
+            </div>
+            <div class="stat-item" data-tooltip="Average FPS improvement">
+                <div class="stat-number" data-target="200">0</div>
+                <div class="stat-label">FPS Boost</div>
+                <div class="stat-description">Average performance increase</div>
+                <div class="stat-details">
+                    <p>Experience significant FPS improvements across all your favorite games with our advanced optimization.</p>
+                </div>
+            </div>
+            <div class="stat-item" data-tooltip="User satisfaction rate">
+                <div class="stat-number" data-target="99">0</div>
+                <div class="stat-label">Satisfaction Rate</div>
+                <div class="stat-description">From our verified users</div>
+                <div class="stat-details">
+                    <p>Our users consistently rate us highly for reliable performance improvements and excellent support.</p>
+                </div>
+            </div>
+            <div class="stat-item" data-tooltip="24/7 Customer support">
+                <div class="stat-number" data-target="24">0</div>
+                <div class="stat-label">Hour Support</div>
+                <div class="stat-description">Always here to help</div>
+                <div class="stat-details">
+                    <p>Our dedicated support team is available around the clock to assist you with any questions or concerns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision">
+        <div class="vision-container">
+            <div class="vision-header">
+                <h2>Our Vision</h2>
+                <p class="vision-subtitle">Redefining the future of PC optimization</p>
+                <div class="vision-intro">
+                    <p>At Xcelerate, we envision a world where every PC user can achieve peak performance without complexity. Our mission is to democratize advanced optimization technology through innovation, security, and community.</p>
+                </div>
+            </div>
+            <div class="vision-grid">
+                <div class="vision-item">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Innovation</h3>
+                    <p>We're pioneering quantum-inspired algorithms and AI-driven optimization to push the boundaries of what's possible in PC performance. Our cutting-edge technology delivers unprecedented speed and efficiency.</p>
+                    <ul class="vision-features">
+                        <li>Advanced AI-powered optimization</li>
+                        <li>Real-time performance monitoring</li>
+                        <li>Adaptive learning algorithms</li>
+                        <li>Quantum-inspired processing</li>
+                    </ul>
+                </div>
+                <div class="vision-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Security</h3>
+                    <p>Your system's integrity is our top priority. We implement state-of-the-art protection measures and real-time monitoring to ensure safe and secure optimization at all times.</p>
+                    <ul class="vision-features">
+                        <li>End-to-end encryption</li>
+                        <li>Proactive threat detection</li>
+                        <li>Secure optimization protocols</li>
+                        <li>Regular security updates</li>
+                    </ul>
+                </div>
+                <div class="vision-item">
+                    <i class="fas fa-users"></i>
+                    <h3>Community</h3>
+                    <p>We're building more than software - we're creating a global community of performance enthusiasts. Share experiences, learn from experts, and be part of the optimization revolution.</p>
+                    <ul class="vision-features">
+                        <li>Expert-led forums</li>
+                        <li>Performance sharing platform</li>
+                        <li>Community optimization guides</li>
+                        <li>Collaborative testing</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="vision-future">
+                <h3>Looking Ahead</h3>
+                <p>Our commitment to innovation drives us to constantly push the boundaries of what's possible. We're working on groundbreaking features that will revolutionize PC optimization:</p>
+                <div class="future-grid">
+                    <div class="future-item">
+                        <i class="fas fa-microchip"></i>
+                        <h4>Neural Processing</h4>
+                        <p>Advanced AI algorithms that learn and adapt to your unique usage patterns</p>
+                    </div>
+                    <div class="future-item">
+                        <i class="fas fa-network-wired"></i>
+                        <h4>Cloud Integration</h4>
+                        <p>Seamless optimization across devices with cloud-powered synchronization</p>
+                    </div>
+                    <div class="future-item">
+                        <i class="fas fa-vr-cardboard"></i>
+                        <h4>VR Optimization</h4>
+                        <p>Specialized tweaks for virtual reality and augmented reality applications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="team-container">
+            <div class="team-header">
+                <h2>Our Team</h2>
+                <p class="team-subtitle">Meet the innovators behind Xcelerate</p>
+                <div class="team-intro">
+                    <p>Our diverse team of experts brings together decades of experience in quantum computing, AI development, and system optimization. United by our passion for innovation, we're pushing the boundaries of what's possible in PC performance.</p>
+                </div>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://i.pravatar.cc/300?img=1" alt="Alex Chen">
+                        <div class="member-overlay">
+                            <div class="member-quote">"Innovation is about finding the perfect balance between performance and stability."</div>
+                        </div>
+                    </div>
+                    <h3>Alex Chen</h3>
+                    <p class="member-title">Quantum Algorithm Specialist</p>
+                    <div class="member-bio">
+                        <p>Pioneer in quantum computing applications for PC optimization. Led the development of our core optimization engine.</p>
+                        <ul class="member-achievements">
+                            <li>Ph.D. in Quantum Computing</li>
+                            <li>15+ years in system optimization</li>
+                            <li>Creator of QuantumBoost™ technology</li>
+                            <li>Former lead at Quantum Labs</li>
+                        </ul>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://i.pravatar.cc/300?img=2" alt="Sarah Johnson">
+                        <div class="member-overlay">
+                            <div class="member-quote">"AI is the key to understanding and optimizing complex system behaviors."</div>
+                        </div>
+                    </div>
+                    <h3>Sarah Johnson</h3>
+                    <p class="member-title">AI Development Lead</p>
+                    <div class="member-bio">
+                        <p>Expert in machine learning and neural networks. Architected our AI-driven optimization system.</p>
+                        <ul class="member-achievements">
+                            <li>M.S. in Artificial Intelligence</li>
+                            <li>Led development of NeuralSync™</li>
+                            <li>Published AI researcher</li>
+                            <li>Speaker at TechCon 2024</li>
+                        </ul>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://i.pravatar.cc/300?img=3" alt="Marcus Rodriguez">
+                        <div class="member-overlay">
+                            <div class="member-quote">"Performance optimization is an art form backed by science."</div>
+                        </div>
+                    </div>
+                    <h3>Marcus Rodriguez</h3>
+                    <p class="member-title">Performance Optimization Expert</p>
+                    <div class="member-bio">
+                        <p>Specialist in system performance and optimization. Created our advanced tweaking algorithms.</p>
+                        <ul class="member-achievements">
+                            <li>B.S. in Computer Engineering</li>
+                            <li>10+ years in game optimization</li>
+                            <li>Developer of SpeedSync™</li>
+                            <li>Gaming industry veteran</li>
+                        </ul>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Xcelerate</div>
+            <div class="footer-links">
+                <a href="#" class="footer-link" id="termsLink">Terms</a>
+                <a href="#" class="footer-link" id="privacyLink">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add Modals -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h1 class="modal-title">Terms of Service</h1>
+            
+            <div class="modal-section">
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing and using Xcelerate's services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our services.</p>
+            </div>
+
+            <div class="modal-section">
+                <h2>2. Service Description</h2>
+                <p>Xcelerate provides PC optimization software and services designed to enhance system performance. Our services include:</p>
+                <ul>
+                    <li>System optimization and performance enhancement</li>
+                    <li>Memory management and optimization</li>
+                    <li>CPU and GPU performance tuning</li>
+                    <li>Real-time system monitoring</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2>3. License and Usage Rights</h2>
+                <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use our software and services for personal or business use in accordance with these Terms.</p>
+                <p>You agree not to:</p>
+                <ul>
+                    <li>Modify, reverse engineer, or decompile the software</li>
+                    <li>Create derivative works based on our services</li>
+                    <li>Use the services for illegal purposes</li>
+                    <li>Attempt to gain unauthorized access to our systems</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2>4. User Responsibilities</h2>
+                <p>As a user of Xcelerate services, you are responsible for:</p>
+                <ul>
+                    <li>Maintaining the confidentiality of your account credentials</li>
+                    <li>Ensuring your system meets minimum requirements</li>
+                    <li>Creating regular backups of your system</li>
+                    <li>Using the software in accordance with our guidelines</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2>5. Warranty Disclaimer</h2>
+                <p>THE SERVICES ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. XCELERATE DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, OR STATUTORY.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h1 class="modal-title">Privacy Policy</h1>
+            
+            <div class="modal-section">
+                <h2>1. Information We Collect</h2>
+                <p>We collect the following types of personal information:</p>
+                <ul>
+                    <li>Account information (name, email, password)</li>
+                    <li>Payment information (processed securely)</li>
+                    <li>System information (hardware specifications)</li>
+                    <li>Usage data (feature usage, preferences)</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2>2. How We Use Your Information</h2>
+                <p>We use your information to:</p>
+                <ul>
+                    <li>Provide and improve our services</li>
+                    <li>Process payments and maintain accounts</li>
+                    <li>Send important updates and notifications</li>
+                    <li>Analyze and optimize performance</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2>3. Data Protection</h2>
+                <p>We implement appropriate security measures to protect your information, including:</p>
+                <ul>
+                    <li>Encryption of data in transit and at rest</li>
+                    <li>Regular security assessments</li>
+                    <li>Access controls and authentication</li>
+                    <li>Employee training on data protection</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2>4. Your Rights</h2>
+                <p>You have the right to:</p>
+                <ul>
+                    <li>Access your personal information</li>
+                    <li>Request corrections or deletion</li>
+                    <li>Object to processing</li>
+                    <li>Data portability</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Add Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
+    <!-- Add Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Create particle effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random animation duration and delay
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize animations
+        createParticles();
+        
+        // Create a single IntersectionObserver instance for all animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    
+                    // Handle counter animation for stat numbers
+                    if (entry.target.classList.contains('stat-number')) {
+                        const target = parseInt(entry.target.dataset.target);
+                        animateCounter(entry.target, target);
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Counter animation function
+        function animateCounter(element, target) {
+            let current = 0;
+            const duration = 2500;
+            const startTime = performance.now();
+            
+            function easeOutExpo(x) {
+                return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+            }
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                current = Math.round(target * easeOutExpo(progress));
+                
+                if (target >= 1000000) {
+                    element.textContent = Math.round(current).toLocaleString() + '+';
+                } else if (target === 200) {
+                    element.textContent = Math.round(current) + '%';
+                } else {
+                    element.textContent = Math.round(current);
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Initialize observers
+        document.querySelectorAll('.animate-on-scroll, .vision-item, .team-member, .stat-item, .stat-number, .timeline-item, .award-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Initialize features when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initModals();
+            initUserInterface();
+        });
+
+        // Modal functionality
+        function initModals() {
+            const termsModal = document.getElementById('termsModal');
+            const privacyModal = document.getElementById('privacyModal');
+            const termsLink = document.getElementById('termsLink');
+            const privacyLink = document.getElementById('privacyLink');
+            const closeButtons = document.querySelectorAll('.modal-close');
+
+            function openModal(modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal(modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            termsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(termsModal);
+            });
+
+            privacyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(privacyModal);
+            });
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    closeModal(button.closest('.modal'));
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target);
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        closeModal(modal);
+                    });
+                }
+            });
+        }
+
+        // User interface initialization
+        function initUserInterface() {
+            initScrollProgress();
+            initBackToTop();
+            initStatItems();
+            initMobileMenu();
+            initAccessibility();
+        }
+
+        // Initialize scroll progress
+        function initScrollProgress() {
+            const progressBar = document.querySelector('.scroll-progress-bar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + '%';
+                
+                backToTop.classList.toggle('visible', winScroll > 300);
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Initialize stat items
+        function initStatItems() {
+            document.querySelectorAll('.stat-item').forEach(item => {
+                item.setAttribute('tabindex', '0');
+                
+                const handleInteraction = () => {
+                    const wasExpanded = item.classList.contains('expanded');
+                    
+                    document.querySelectorAll('.stat-item.expanded').forEach(expandedItem => {
+                        if (expandedItem !== item) {
+                            expandedItem.classList.remove('expanded');
+                        }
+                    });
+                    
+                    item.classList.toggle('expanded');
+                    item.setAttribute('aria-expanded', !wasExpanded);
+                };
+                
+                item.addEventListener('click', handleInteraction);
+                item.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleInteraction();
+                    }
+                });
+            });
+        }
+
+        // Initialize mobile menu
+        function initMobileMenu() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize accessibility features
+        function initAccessibility() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.setAttribute('aria-label', link.textContent + ' page');
+            });
+        }
+    </script>
+</body>
+</html> 

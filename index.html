@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xcelerate Store - The Infinity Forge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --xcelerate-purple: #8B5CF6;
+            --xcelerate-gold: #F59E0B;
+            --xcelerate-void: #1F2937;
+            --xcelerate-neon: #10B981;
+            --xcelerate-dark: #111827;
+            --xcelerate-cyan: #06B6D4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, var(--xcelerate-void), #000);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--xcelerate-purple);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav.hidden {
+            transform: translateY(-100%);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link:hover::before {
+            opacity: 0.2;
+            transform: scale(1);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, rgba(139, 92, 246, 0.1) 25%, transparent 25%) -50px 0,
+                linear-gradient(-45deg, rgba(139, 92, 246, 0.1) 25%, transparent 25%) -50px 0,
+                linear-gradient(45deg, transparent 75%, rgba(139, 92, 246, 0.1) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(139, 92, 246, 0.1) 75%);
+            background-size: 100px 100px;
+            opacity: 0.1;
+            z-index: 1;
+            animation: backgroundShift 20s linear infinite;
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0 0, 0 0, 50px 50px, 50px 50px; }
+            100% { background-position: 100px 0, 100px 0, 150px 50px, 150px 50px; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1000px;
+            padding: 0 20px;
+            text-align: center;
+            background: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 3rem;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-content:hover {
+            transform: translateY(-10px);
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold), var(--xcelerate-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            position: relative;
+            letter-spacing: -2px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            border-radius: 2px;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            animation: slideUp 1s ease-out 0.3s both;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: #e2e8f0;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out 0.6s both;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+        }
+
+        .cta-primary {
+            background: linear-gradient(45deg, var(--xcelerate-purple), var(--xcelerate-gold));
+            color: white;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--xcelerate-purple);
+            border: 2px solid var(--xcelerate-purple);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Enhanced Philosophy Section */
+        .philosophy {
+            padding: 12rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+        }
+
+        .philosophy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            z-index: 1;
+            animation: pulseBackground 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseBackground {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .philosophy-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .philosophy h2 {
+            font-size: 4rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 3rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 800;
+        }
+
+        .philosophy h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            border-radius: 2px;
+        }
+
+        .philosophy-quote {
+            font-size: 2.5rem;
+            color: #fff;
+            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            position: relative;
+            line-height: 1.6;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .philosophy-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .philosophy-card {
+            background: rgba(31, 41, 55, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--xcelerate-purple);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .philosophy-card i {
+            font-size: 3rem;
+            color: var(--xcelerate-purple);
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-card h3 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .philosophy-card p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Enhanced Features Section */
+        .features {
+            padding: 12rem 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(245, 158, 11, 0.1));
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 6rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .features-header h2 {
+            font-size: 4rem;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 800;
+        }
+
+        .features-header p {
+            font-size: 1.4rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: var(--xcelerate-purple);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--xcelerate-purple);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+            color: var(--xcelerate-gold);
+        }
+
+        .feature-card h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .feature-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--xcelerate-purple);
+            transition: width 0.3s ease;
+        }
+
+        .feature-card:hover h3::after {
+            width: 100%;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+        }
+
+        .feature-card p {
+            color: #ccc;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            flex-grow: 1;
+        }
+
+        .feature-card .feature-details {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+
+        .feature-card .feature-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-card .feature-details li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card .feature-details i {
+            color: var(--xcelerate-neon);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--xcelerate-dark);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--xcelerate-purple), transparent);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--xcelerate-purple);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--xcelerate-purple);
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .philosophy h2 {
+                font-size: 2.5rem;
+            }
+            
+            .philosophy p {
+                font-size: 1.5rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Add Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            margin: auto;
+            background: rgba(31, 41, 55, 0.95);
+            border-radius: 16px;
+            padding: 2.5rem;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: white;
+            background: rgba(139, 92, 246, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .modal-section {
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .modal-section:nth-child(2) { animation-delay: 0.1s; }
+        .modal-section:nth-child(3) { animation-delay: 0.2s; }
+        .modal-section:nth-child(4) { animation-delay: 0.3s; }
+        .modal-section:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-section h2 {
+            color: var(--xcelerate-gold);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-section h2 i {
+            font-size: 1.4rem;
+            color: var(--xcelerate-purple);
+        }
+
+        .modal-section p {
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .modal-section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .modal-section li {
+            color: #e2e8f0;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .modal-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--xcelerate-purple);
+        }
+
+        .modal-meta {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            color: #94a3b8;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--xcelerate-purple);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--xcelerate-gold);
+        }
+
+        /* User-friendly Enhancements */
+        :focus {
+            outline: 2px solid var(--xcelerate-purple);
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--xcelerate-purple);
+            color: white;
+            padding: 8px;
+            z-index: 1001;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(139, 92, 246, 0.2);
+            z-index: 1000;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--xcelerate-purple), var(--xcelerate-gold));
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(139, 92, 246, 0.9);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--xcelerate-purple);
+        }
+
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        [data-tooltip]:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .feature-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .feature-card:focus-within {
+            transform: translateY(-5px);
+            border-color: var(--xcelerate-purple);
+        }
+
+        .loading {
+            position: relative;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--xcelerate-purple);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Button States */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s;
+        }
+
+        .btn:hover::after {
+            transform: translate(-50%, -50%) scale(2);
+        }
+
+        /* Enhanced Navigation */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--xcelerate-purple);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Add Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Add Scroll Progress -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
+    <!-- Add Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Particle Effect -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Xcelerate</a>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Update Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Xcelerate Store</h1>
+            <h2>THE INFINITY FORGE</h2>
+            <p>Step into 2025's ultimate performance sanctuary. Where quantum computing meets gaming excellence, where AI-driven optimization creates impossible framerates, and where your hardware transcends its physical limits.</p>
+            <div class="button-container">
+                <a href="pricing.html" class="cta-button cta-primary">Enter the Tweakverse™</a>
+                <a href="#features" class="cta-button cta-secondary">Discover Power</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Philosophy Section -->
+    <section class="philosophy">
+        <div class="philosophy-container">
+            <h2>Core Philosophy</h2>
+            <p class="philosophy-quote">"In 2025, we don't just optimize performance - we rewrite the laws of computing."</p>
+            <div class="philosophy-cards">
+                <div class="philosophy-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Beyond Limits</h3>
+                    <p>We believe hardware limitations are merely suggestions. Our quantum-inspired algorithms push boundaries previously thought impossible.</p>
+                </div>
+                <div class="philosophy-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI-First Approach</h3>
+                    <p>Every optimization is powered by our neural network, learning and evolving with each user's unique setup and needs.</p>
+                </div>
+                <div class="philosophy-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Quantum Security</h3>
+                    <p>Your system's integrity is protected by post-quantum cryptography and AI-driven security protocols.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Features Section -->
+    <section id="features" class="features">
+        <div class="features-header">
+            <h2>Quantum Features</h2>
+            <p>Experience the convergence of quantum computing, AI, and next-gen optimization technology.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-infinity feature-icon"></i>
+                <h3>Xcelerate Omega Suite™</h3>
+                <p>The ultimate performance package that combines quantum-inspired algorithms with AI-driven optimization.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Quantum CPU Optimization</li>
+                        <li><i class="fas fa-check"></i> Neural GPU Boosting</li>
+                        <li><i class="fas fa-check"></i> Memory Hyperscaling</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-brain feature-icon"></i>
+                <h3>AI-Powered Dynamic Tweak Matrix™</h3>
+                <p>Real-time system optimization powered by our quantum neural network.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Adaptive Learning</li>
+                        <li><i class="fas fa-check"></i> Predictive Optimization</li>
+                        <li><i class="fas fa-check"></i> Real-time Adjustments</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-tachometer-alt feature-icon"></i>
+                <h3>VaporTrail FPS Mode</h3>
+                <p>Zero-latency gaming experience with quantum-state frame prediction.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Quantum Input Sync</li>
+                        <li><i class="fas fa-check"></i> Neural Frame Generation</li>
+                        <li><i class="fas fa-check"></i> Time Dilation Tech</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt feature-icon"></i>
+                <h3>Xcelerate PW Plan™</h3>
+                <p>Transform your system with our revolutionary power management technology.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Quantum Power States</li>
+                        <li><i class="fas fa-check"></i> Neural Load Balancing</li>
+                        <li><i class="fas fa-check"></i> Thermal Optimization</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-robot feature-icon"></i>
+                <h3>NeuralSync AI Companion</h3>
+                <p>Your personal AI optimizer that learns and evolves with your usage patterns.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Behavioral Learning</li>
+                        <li><i class="fas fa-check"></i> Smart Predictions</li>
+                        <li><i class="fas fa-check"></i> Adaptive Profiles</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-layer-group feature-icon"></i>
+                <h3>X-GLASS++™ Interface</h3>
+                <p>A revolutionary UI that adapts to your preferences and usage patterns.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Neural Animations</li>
+                        <li><i class="fas fa-check"></i> Quantum Rendering</li>
+                        <li><i class="fas fa-check"></i> Adaptive Design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Modals -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h1 class="modal-title">Terms of Service</h1>
+            
+            <div class="modal-section">
+                <h2><i class="fas fa-handshake"></i> 1. Agreement Overview</h2>
+                <p>Welcome to Xcelerate, the next-generation PC optimization platform. By accessing or using our services, you agree to these Terms of Service, last updated in 2025.</p>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-rocket"></i> 2. Advanced Services</h2>
+                <p>Our cutting-edge 2025 optimization suite includes:</p>
+                <ul>
+                    <li>AI-powered system optimization with quantum-inspired algorithms</li>
+                    <li>Neural network-based performance prediction and adjustment</li>
+                    <li>Molecular-level CPU and GPU frequency optimization</li>
+                    <li>Quantum-state memory management and optimization</li>
+                    <li>Real-time system monitoring with predictive analytics</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-shield-alt"></i> 3. Enhanced User Rights</h2>
+                <p>As of 2025, we've expanded our license terms to include:</p>
+                <ul>
+                    <li>Multi-device optimization support across quantum and classical systems</li>
+                    <li>Access to our AI-driven performance analysis platform</li>
+                    <li>Integration with next-gen gaming and productivity tools</li>
+                    <li>Priority access to beta features and experimental optimizations</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-user-shield"></i> 4. User Responsibilities</h2>
+                <ul>
+                    <li>Maintain system integrity and security protocols</li>
+                    <li>Respect quantum-classical hybrid optimization boundaries</li>
+                    <li>Follow AI-assisted optimization guidelines</li>
+                    <li>Report any quantum state anomalies promptly</li>
+                </ul>
+            </div>
+
+            <div class="modal-meta">
+                Last Updated: March 2025 | Xcelerate Technologies Inc.
+            </div>
+        </div>
+    </div>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h1 class="modal-title">Privacy Policy</h1>
+            
+            <div class="modal-section">
+                <h2><i class="fas fa-database"></i> 1. Advanced Data Collection</h2>
+                <p>In 2025, we've enhanced our data protection measures to include:</p>
+                <ul>
+                    <li>Quantum-encrypted personal information storage</li>
+                    <li>Blockchain-verified payment processing</li>
+                    <li>AI-anonymized system telemetry data</li>
+                    <li>Neural network optimization patterns</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-shield-alt"></i> 2. Quantum-Grade Security</h2>
+                <p>Our 2025 security protocol implements:</p>
+                <ul>
+                    <li>Post-quantum cryptography for all data transmissions</li>
+                    <li>AI-powered threat detection and prevention</li>
+                    <li>Quantum-resistant encryption algorithms</li>
+                    <li>Real-time security anomaly detection</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-user-lock"></i> 3. Enhanced User Rights</h2>
+                <p>As of 2025, you have expanded control over your data:</p>
+                <ul>
+                    <li>Quantum-secure data portability</li>
+                    <li>AI-assisted privacy customization</li>
+                    <li>Real-time data usage transparency</li>
+                    <li>Instant data deletion with quantum verification</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h2><i class="fas fa-globe"></i> 4. Global Compliance</h2>
+                <p>We adhere to the latest 2025 regulations:</p>
+                <ul>
+                    <li>Quantum Privacy Act compliance</li>
+                    <li>AI Ethics Framework adherence</li>
+                    <li>Global Data Protection Standards</li>
+                    <li>Neural Network Privacy Guidelines</li>
+                </ul>
+            </div>
+
+            <div class="modal-meta">
+                Last Updated: March 2025 | Compliant with Global Quantum Privacy Standards
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Xcelerate</div>
+            <div class="footer-links">
+                <a href="#" class="footer-link" id="termsLink">Terms</a>
+                <a href="#" class="footer-link" id="privacyLink">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create particle effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                
+                // Random size
+                const size = Math.random() * 3;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random animation duration
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Hide/show navbar on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Feature cards animation
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            const cards = document.querySelectorAll('.feature-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(card);
+            });
+        });
+
+        // Add Modal JavaScript
+        function initModals() {
+            const termsModal = document.getElementById('termsModal');
+            const privacyModal = document.getElementById('privacyModal');
+            const termsLink = document.getElementById('termsLink');
+            const privacyLink = document.getElementById('privacyLink');
+            const closeButtons = document.querySelectorAll('.modal-close');
+
+            function openModal(modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal(modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            termsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(termsModal);
+            });
+
+            privacyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(privacyModal);
+            });
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    closeModal(button.closest('.modal'));
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target);
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        closeModal(modal);
+                    });
+                }
+            });
+        }
+
+        // Initialize modals
+        document.addEventListener('DOMContentLoaded', initModals);
+
+        // Add User-friendly Features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize scroll progress
+            const progressBar = document.querySelector('.scroll-progress-bar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                // Update progress bar
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + '%';
+                
+                // Show/hide back to top button
+                if (winScroll > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scroll to top
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Add tooltips to feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                const title = card.querySelector('h3').textContent;
+                card.setAttribute('data-tooltip', `Learn more about ${title}`);
+                card.setAttribute('tabindex', '0');
+            });
+
+            // Add loading states to buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!this.classList.contains('loading')) {
+                        this.classList.add('loading');
+                        setTimeout(() => {
+                            this.classList.remove('loading');
+                        }, 1000);
+                    }
+                });
+            });
+
+            // Enhanced navigation
+            const nav = document.querySelector('.nav');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll <= 0) {
+                    nav.classList.remove('scroll-up');
+                    return;
+                }
+                
+                if (currentScroll > lastScroll && !nav.classList.contains('scroll-down')) {
+                    nav.classList.remove('scroll-up');
+                    nav.classList.add('scroll-down');
+                } else if (currentScroll < lastScroll && nav.classList.contains('scroll-down')) {
+                    nav.classList.remove('scroll-down');
+                    nav.classList.add('scroll-up');
+                }
+                
+                lastScroll = currentScroll;
+            });
+
+            // Add aria-labels for accessibility
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.setAttribute('aria-label', link.textContent + ' page');
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add touch feedback for mobile
+            document.addEventListener('touchstart', function() {}, true);
+        });
+    </script>
+</body>
+</html> 
